@@ -15,7 +15,7 @@
     "github-markdown-css": "^2.0.3",
     "highlight.js": "^8.4.0",
     "marked": "^0.3.3",
-    "sequelize": "~2.0.0-rc2",
+    "sequelize": "^2.0.0",
     "sqlite3": "~3.0.2"
   },
   "devDependencies": {},

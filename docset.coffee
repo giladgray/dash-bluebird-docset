@@ -46,9 +46,10 @@ docset =
 populateEntry = (file, type) -> ->
   $el   = $(@)
   title = $el.text().trim()
+  level = if $el.is('h2') then 1 else 0
   docset[type][title] = "#{file}##{$el.attr('id')}"
   # insert table of contents anchor before this element
-  $el.before "<a name='//apple_ref/cpp/#{type}/#{encodeURIComponent(title)}' class='dashAnchor'></a>"
+  $el.before "<a name='//dash_ref/#{type}/#{encodeURIComponent(title)}/#{level}' class='dashAnchor'></a>"
 
 for title, file of FILES
   $ = cheerio.load fs.readFileSync("html/#{file}")
