@@ -37,6 +37,9 @@ FILES = {
   'API' : 'api.html'
 }
 
+# sections that don't have any functions and should get /0 anchor
+SOLOS = ['#progression-migration', '#deferred-migration'].join(', ')
+
 # type: {name: path, ...}
 docset =
   Section: {}
@@ -46,10 +49,13 @@ docset =
 populateEntry = (file, type) -> ->
   $el   = $(@)
   title = $el.text().trim()
-  level = if $el.is('h2') then 1 else 0
   docset[type][title] = "#{file}##{$el.attr('id')}"
+  level = if $el.is('h2') then 1 else 0
+  title = encodeURIComponent(title)
   # insert table of contents anchor before this element
-  $el.before "<a name='//dash_ref/#{type}/#{encodeURIComponent(title)}/#{level}' class='dashAnchor'></a>"
+  $el.before "<a name='//dash_ref/#{type}/#{title}/#{level}' class='dashAnchor'></a>"
+  if $el.is(SOLOS)
+    $el.before "<a name='//dash_ref/#{type}/#{title}/0' class='dashAnchor'></a>"
 
 for title, file of FILES
   $ = cheerio.load fs.readFileSync("html/#{file}")
@@ -77,6 +83,7 @@ SearchIndex = db.define 'searchIndex',
   id:
     type: Sequelize.INTEGER
     autoIncrement: true
+    primaryKey: true
   name: Sequelize.STRING
   type: Sequelize.STRING
   path: Sequelize.STRING
