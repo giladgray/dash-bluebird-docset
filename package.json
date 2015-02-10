@@ -4,7 +4,8 @@
   "description": "Bluebird Promises docset for the excellent Dash documentation browser",
   "main": "docset.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tar": "tar --exclude='.DS_Store' -cvzf bluebird.tgz bluebird.docset"
   },
   "author": "Gilad Gray",
   "license": "MIT",
