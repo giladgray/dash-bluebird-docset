@@ -5,7 +5,8 @@
   "main": "docset.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tar": "tar --exclude='.DS_Store' -cvzf bluebird.tgz bluebird.docset"
+    "tar": "tar --exclude='.DS_Store' -cvzf bluebird.tgz bluebird.docset",
+    "dash": "./dash.sh"
   },
   "author": "Gilad Gray",
   "license": "MIT",
