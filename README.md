@@ -16,6 +16,9 @@ Building this docset yourself is simple:
 2. `git clone` this repo
 3. `npm install`
 4. `coffee docset.coffee` to rebuild the Sqlite database
+5. `npm run tar` to generate `bluebird.tgz` archive
+6. `npm run dash` to copy necessary files to `../Dash-User-Contributions` repo
+7. submit PR!
 
 The Bluebird documentation Markdown file can be found in `html/`. I saved each of the files from the GitHub repo directly and modified them slightly to look better in Dash by removing the table of contents outline at the beginning.
 
