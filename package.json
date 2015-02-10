@@ -1,0 +1,33 @@
+{
+  "name": "dash-bluebird-docset",
+  "version": "0.1.0",
+  "description": "Bluebird Promises docset for the excellent Dash documentation browser",
+  "main": "docset.coffee",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gilad Gray",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "~0.17.0",
+    "github-markdown-css": "^2.0.3",
+    "highlight.js": "^8.4.0",
+    "marked": "^0.3.3",
+    "sequelize": "~2.0.0-rc2",
+    "sqlite3": "~3.0.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/giladgray/dash-bluebird-docset"
+  },
+  "keywords": [
+    "dash",
+    "docset",
+    "bluebird",
+    "promise"
+  ],
+  "bugs": {
+    "url": "https://github.com/giladgray/dash-bluebird-docset/issues"
+  }
+}
