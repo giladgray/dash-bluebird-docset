@@ -42,7 +42,7 @@ function getConnection(urlString) {
 }
 ```
 
-The above ensures `getConnection()` fulfills the contract of a promise-returning function of never throwing a synchronous exception. Also see [`Promise.try`](#promisetryfunction-fn--arraydynamicdynamic-arguments--dynamic-ctx----promise) and [`Promise.method`](#promisemethodfunction-fn---function)
+The above ensures `getConnection()` fulfills the contract of a promise-returning function of never throwing a synchronous exception. Also see [`Promise.try`](#-promise-try-function-fn-array-dynamic-dynamic-arguments-dynamic-ctx-promise-) and [`Promise.method`](#-promise-method-function-fn-function-)
 
 The resolver is called synchronously (the following is for documentation purposes and not idiomatic code):
 
@@ -96,7 +96,7 @@ Promise.delay(500).then(function() {
 });
 ```
 
-If you want to coordinate several discrete concurrent promises, use [`Promise.join()`](#promisejoinpromisethenablevalue-promises-function-handler---promise)
+If you want to coordinate several discrete concurrent promises, use [`Promise.join()`](#-promise-join-promise-thenable-value-promises-function-handler-promise-)
 
 <hr>
 
@@ -216,11 +216,11 @@ request("http://www.google.com").then(function(contents) {
 
 #####`.error( [rejectedHandler] )` -> `Promise`
 
-Like [`.catch`](#catchfunction-handler---promise) but instead of catching all types of exceptions, it only catches [operational errors](#operationalerror)
+Like [`.catch`](#-catch-function-handler-promise-) but instead of catching all types of exceptions, it only catches [operational errors](#-operationalerror-)
 
 *Note, "errors" mean errors, as in objects that are `instanceof Error` - not strings, numbers and so on. See [a string is not an error](http://www.devthought.com/2011/12/22/a-string-is-not-an-error/).*
 
-It is equivalent to the following [`.catch`](#catchfunction-errorclassfunction-predicate-function-handler---promise) pattern:
+It is equivalent to the following [`.catch`](#-catch-function-handler-promise-) pattern:
 
 ```js
 // Assumes OperationalError has been made global
@@ -273,7 +273,7 @@ From previous event:
     at node.js:761:3
 ```
 
-*( If you don't get the above - you need to enable [long stack traces](#promiselongstacktraces---void) )*
+*( If you don't get the above - you need to enable [long stack traces](#-promise-longstacktraces-void-) )*
 
 And if the file contains invalid JSON:
 
@@ -451,7 +451,7 @@ something().bind(var1).then(function() {
 });
 ```
 
-Also see [this Stackoverflow answer](http://stackoverflow.com/a/19467053/995876) on a good example on how utilizing the collection instance methods like [`.map()`](#mapfunction-mapper--object-options---promise) can clean up code.
+Also see [this Stackoverflow answer](http://stackoverflow.com/a/19467053/995876) on a good example on how utilizing the collection instance methods like [`.map()`](#-map-function-mapper-object-options-promise-) can clean up code.
 
 <hr>
 
@@ -488,7 +488,7 @@ The above does `console.log(document.getElementById("my-element"));`. The `.bind
 
 #####`Promise.join(Promise|Thenable|value promises..., Function handler)` -> `Promise`
 
-For coordinating multiple concurrent discrete promises. While [`.all()`](#all---promise) is good for handling a dynamically sized list of uniform promises, `Promise.join` is much easier (and more performant) to use when you have a fixed amount of discrete promises that you want to coordinate concurrently, for example:
+For coordinating multiple concurrent discrete promises. While [`.all()`](#-all-promise-) is good for handling a dynamically sized list of uniform promises, `Promise.join` is much easier (and more performant) to use when you have a fixed amount of discrete promises that you want to coordinate concurrently, for example:
 
 ```js
 var Promise = require("bluebird");
@@ -634,7 +634,7 @@ Create a promise that is rejected with the given `reason`.
 
 #####`Promise.bind(dynamic thisArg [, dynamic value])` -> `Promise`
 
-Sugar for `Promise.resolve(value).bind(thisArg);`. See [`.bind()`](#binddynamic-thisarg---promise).
+Sugar for `Promise.resolve(value).bind(thisArg);`. See [`.bind()`](#-bind-dynamic-thisarg-promise-).
 
 <hr>
 
@@ -818,7 +818,7 @@ directorySizeInfo(process.argv[2] || ".").then(function(sizeInfo) {
 });
 ```
 
-Note that if you have no use for the result object other than retrieving the properties, it is more convenient to use [`Promise.join()`](#promisejoinpromisethenablevalue-promises-function-handler---promise):
+Note that if you have no use for the result object other than retrieving the properties, it is more convenient to use [`Promise.join()`](#-promise-join-promise-thenable-value-promises-function-handler-promise-):
 
 ```js
 Promise.join(getPictures(), getComments(), getTweets(),
@@ -868,7 +868,7 @@ Like `.some()`, with 1 as `count`. However, if the promise fulfills, the fulfill
 
 Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
 
-You most likely want to use the [`.any()`](#any---promise) method.
+You most likely want to use the [`.any()`](#-any-promise-) method.
 
 <hr>
 
@@ -890,7 +890,7 @@ Promise.some([
 });
 ```
 
-If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an [`AggregateError`](#aggregateerror) of the rejection reasons in the order they were thrown in.
+If too many promises are rejected so that the promise can never become fulfilled, it will be immediately rejected with an [`AggregateError`](#-aggregateerror-) of the rejection reasons in the order they were thrown in.
 
 You can get a reference to `AggregateError` from `Promise.AggregateError`.
 
@@ -1060,7 +1060,7 @@ An efficient shortcut for doing:
 
 ######Option: `concurrency`
 
-See [`.map()`](#mapfunction-mapper--object-options---promise);
+See [`.map()`](#-map-function-mapper-object-options-promise-);
 
 <hr>
 
@@ -1114,7 +1114,7 @@ reading the file may fail and then of course `.spread` is not called at all and 
 One could solve this by either reading the file first or connecting first, and only proceeding if the first step succeeds. However,
 this would lose a lot of the benefits of using asynchronity and we might almost as well go back to using simple synchronous code.
 
-We can do better, retaining concurrency and not leaking resources, by using [`using()`](#promiseusingpromisedisposer-promise-promisedisposer-promise--function-handler---promise):
+We can do better, retaining concurrency and not leaking resources, by using [`using()`](#-promise-using-promise-disposer-promise-promise-disposer-promise-function-handler-promise-):
 
 ```js
 var using = Promise.using;
@@ -1130,9 +1130,9 @@ using(getConnection(),
 
 #####`Promise.using(Promise|Disposer promise, Promise|Disposer promise ..., Function handler)` -> `Promise`
 
-In conjunction with [`.disposer()`](#disposerfunction-disposer---disposer), `using` will make sure that no matter what, the specified disposer will be called when the promise returned by the callback passed to `using` has settled. The disposer is necessary because there is no standard interface in node for disposing resources.
+In conjunction with [`.disposer()`](#-disposer-function-disposer-disposer-), `using` will make sure that no matter what, the specified disposer will be called when the promise returned by the callback passed to `using` has settled. The disposer is necessary because there is no standard interface in node for disposing resources.
 
-Here is a simple example (where `getConnection()` [has been defined] to return a proper [`Disposer`](#disposerfunction-disposer---disposer)))
+Here is a simple example (where `getConnection()` [has been defined] to return a proper [`Disposer`](#-disposer-function-disposer-disposer-)))
 
 
 ```js
@@ -1172,7 +1172,7 @@ using(getConnection(), getConnection(), function(conn1, conn2) {
 ```
 
 However, if the second `getConnection()` throws **synchronously**, the first connection is leaked. This will not happen
-when using APIs through bluebird promisified methods though. You can wrap functions that could throw in [`Promise.method`](#promisemethodfunction-fn---function) which will turn synchronous rejections into rejected promises.
+when using APIs through bluebird promisified methods though. You can wrap functions that could throw in [`Promise.method`](#-promise-method-function-fn-function-) which will turn synchronous rejections into rejected promises.
 
 Note that you can mix promises and disposers, so that you can acquire all the things you need in parallel instead of sequentially
 
@@ -1190,7 +1190,7 @@ using(readFile("1.txt"), readFile("2.txt"), getConnection(), function(txt1, txt2
 
 #####`.disposer(Function disposer)` -> `Disposer`
 
-A meta method used to specify the disposer method that cleans up a resource when using [`using()`](#promiseusingpromisedisposer-promise-promisedisposer-promise--function-handler---promise).
+A meta method used to specify the disposer method that cleans up a resource when using [`using()`](#-promise-using-promise-disposer-promise-promise-disposer-promise-function-handler-promise-).
 
 Example:
 
@@ -1436,7 +1436,7 @@ Promise.promisifyAll(Object.getPrototypeOf(throwAwayInstance));
 // Like before, from this point on, all new instances + even the throwAwayInstance suddenly support promises
 ```
 
-See also [`Promise.promisifyAll()`](#promisepromisifyallobject-target--object-options---object).
+See also [`Promise.promisifyAll()`](#-promise-promisifyall-object-target-object-options-object-).
 
 #####`Promise.promisify(Function nodeFunction [, dynamic receiver])` -> `Function`
 
@@ -1474,7 +1474,7 @@ redisGet('foo').then(function() {
 
 **Tip**
 
-Use [`.spread`](#spreadfunction-fulfilledhandler--function-rejectedhandler----promise) with APIs that have multiple success values:
+Use [`.spread`](#-spread-function-fulfilledhandler-function-rejectedhandler-promise-) with APIs that have multiple success values:
 
 ```js
 var Promise = require("bluebird");
@@ -1697,7 +1697,7 @@ fs.writeFileAsync("the-version.txt", version, "utf8");
 
 #####`Promise.fromNode(Function resolver)` -> `Promise`
 
-Returns a promise that is resolved by a node style callback function. This is the most fitting way to do on the fly promisification when libraries don't expose classes for automatic promisification by [`promisifyAll`](#promisepromisifyallobject-target--object-options---object).
+Returns a promise that is resolved by a node style callback function. This is the most fitting way to do on the fly promisification when libraries don't expose classes for automatic promisification by [`promisifyAll`](#-promise-promisifyall-object-target-object-options-object-).
 
 The resolver function is passed a callback that expects to be called back according to error-first node conventions.
 
@@ -1810,13 +1810,13 @@ Methods to delay and time promises out.
 
 #####`.delay(int ms)` -> `Promise`
 
-Same as calling [`Promise.delay(this, ms)`](#promisedelaydynamic-value-int-ms---promise). With the exception that if this promise is [bound](#binddynamic-thisarg---promise) to a value, the returned promise is bound to that value too.
+Same as calling [`Promise.delay(this, ms)`](#-promise-delay-dynamic-value-int-ms-promise-). With the exception that if this promise is [bound](#-bind-dynamic-thisarg-promise-) to a value, the returned promise is bound to that value too.
 
 <hr>
 
 #####`.timeout(int ms [, String message])` -> `Promise`
 
-Returns a [`cancellable`](#cancellable---promise) promise that will be fulfilled with this promise's fulfillment value or rejection reason. However, if this promise is not fulfilled or rejected within `ms` milliseconds, the returned promise is cancelled with a [`TimeoutError`](#timeouterror) as the cancellation reason.
+Returns a [`cancellable`](#-cancellable-promise-) promise that will be fulfilled with this promise's fulfillment value or rejection reason. However, if this promise is not fulfilled or rejected within `ms` milliseconds, the returned promise is cancelled with a [`TimeoutError`](#-timeouterror-) as the cancellation reason.
 
 You may specify a custom error message with the `message` parameter.
 
@@ -1873,11 +1873,11 @@ Promise.delay(500).then(function() {
 
 ##Cancellation
 
-By default, a promise is not cancellable. A promise can be marked as cancellable with `.cancellable()`. A cancellable promise can be cancelled if it's not resolved. Cancelling a promise propagates to the farthest cancellable ancestor of the target promise that is still pending, and rejects that promise with the given reason, or [`CancellationError`](#cancellationerror) by default. The rejection will then propagate back to the original promise and to its descendants. This roughly follows the semantics described [here](https://github.com/promises-aplus/cancellation-spec/issues/7).
+By default, a promise is not cancellable. A promise can be marked as cancellable with `.cancellable()`. A cancellable promise can be cancelled if it's not resolved. Cancelling a promise propagates to the farthest cancellable ancestor of the target promise that is still pending, and rejects that promise with the given reason, or [`CancellationError`](#-cancellationerror-) by default. The rejection will then propagate back to the original promise and to its descendants. This roughly follows the semantics described [here](https://github.com/promises-aplus/cancellation-spec/issues/7).
 
 Promises marked with `.cancellable()` return cancellable promises automatically.
 
-If you are the resolver for a promise, you can react to a cancel in your promise by catching the [`CancellationError`](#cancellationerror):
+If you are the resolver for a promise, you can react to a cancel in your promise by catching the [`CancellationError`](#-cancellationerror-):
 
 ```js
 function ajaxGetAsync(url) {
@@ -1898,7 +1898,7 @@ function ajaxGetAsync(url) {
 
 #####`.cancellable()` -> `Promise`
 
-Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for [`.cancel()`](#cancelerror-reason---promise) to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
+Marks this promise as cancellable. Promises by default are not cancellable after v0.11 and must be marked as such for [`.cancel()`](#-cancel-error-reason-promise-) to have any effect. Marking a promise as cancellable is infectious and you don't need to remark any descendant promise.
 
 If you have code written prior v0.11 using cancellation, add calls to `.cancellable()` at the starts of promise chains that need to support
 cancellation in themselves or somewhere in their descendants.
@@ -1916,9 +1916,9 @@ Create an uncancellable promise based on this promise.
 Cancel this promise with the given reason. The cancellation will propagate
 to farthest cancellable ancestor promise which is still pending.
 
-That ancestor will then be rejected with the given `reason`, or a [`CancellationError`](#cancellationerror) if it is not given. (get a reference from `Promise.CancellationError`) object as the rejection reason.
+That ancestor will then be rejected with the given `reason`, or a [`CancellationError`](#-cancellationerror-) if it is not given. (get a reference from `Promise.CancellationError`) object as the rejection reason.
 
-Promises are by default not cancellable. Use [`.cancellable()`](#cancellable---promise) to mark a promise as cancellable.
+Promises are by default not cancellable. Use [`.cancellable()`](#-cancellable-promise-) to mark a promise as cancellable.
 
 <hr>
 
@@ -1979,7 +1979,7 @@ Doing `Promise.coroutine(function*() {})` is almost like using the C# `async` ke
 
 **Tip**
 
-You are able to yield non-promise values by adding your own yield handler using  [`Promise.coroutine.addYieldHandler`](#promisecoroutineaddyieldhandlerfunction-handler---void)
+You are able to yield non-promise values by adding your own yield handler using  [`Promise.coroutine.addYieldHandler`](#-promise-coroutine-addyieldhandler-function-handler-void-)
 
 <hr>
 
@@ -2364,29 +2364,29 @@ The `.reflect()` method returns a promise that is always successful when this pr
 ##Built-in error types
 
 Bluebird includes a few built-in error types for common usage. All error types have the same identity across different copies of bluebird
-module so that pattern matching works in [`.catch`](#catchfunction-errorclassfunction-predicate-function-handler---promise). All error types have a constructor taking a message string as their first argument, with that message
+module so that pattern matching works in [`.catch`](#-catch-function-handler-promise-). All error types have a constructor taking a message string as their first argument, with that message
 becoming the `.message` property of the error object.
 
 By default the error types need to be referenced from the Promise constructor, e.g. to get a reference to `TimeoutError`, do `var TimeoutError = Promise.TimeoutError`. However, for convenience you will probably want to just make the references global.
 
 #####`OperationalError()`
 
-Represents an error is an explicit promise rejection as opposed to a thrown error. For example, if an error is errbacked by a callback API promisified through [`promisify()`](#promisepromisifyfunction-nodefunction--dynamic-receiver---function) or [`promisifyAll()`](#promisepromisifyallobject-target--object-options---object)
+Represents an error is an explicit promise rejection as opposed to a thrown error. For example, if an error is errbacked by a callback API promisified through [`promisify()`](#-promise-promisify-function-nodefunction-dynamic-receiver-function-) or [`promisifyAll()`](#-promise-promisifyall-object-target-object-options-object-)
 and is not a typed error, it will be converted to a `OperationalError` which has the original error in the `.cause` property.
 
-`OperationalError`s are caught in [`.error()`](#error-rejectedhandler----promise) handlers.
+`OperationalError`s are caught in [`.error()`](#-error-rejectedhandler-promise-) handlers.
 
 <hr>
 
 #####`TimeoutError()`
 
-Signals that an operation has timed out. Used as a custom cancellation reason in [`.timeout()`](#timeoutint-ms--string-message---promise).
+Signals that an operation has timed out. Used as a custom cancellation reason in [`.timeout()`](#-timeout-int-ms-string-message-promise-).
 
 <hr>
 
 #####`CancellationError()`
 
-Signals that an operation has been aborted or cancelled. The default reason used by [`.cancel()`](#cancelerror-reason---promise).
+Signals that an operation has been aborted or cancelled. The default reason used by [`.cancel()`](#-cancel-error-reason-promise-).
 
 <hr>
 
@@ -2394,9 +2394,9 @@ Signals that an operation has been aborted or cancelled. The default reason used
 
 A collection of errors. `AggregateError` is an array-like object, with numeric indices and a `.length` property. It supports all generic array methods such as `.forEach` directly.
 
-`AggregateError`s are caught in [`.error()`](#error-rejectedhandler----promise) handlers, even if the contained errors are not operational.
+`AggregateError`s are caught in [`.error()`](#-error-rejectedhandler-promise-) handlers, even if the contained errors are not operational.
 
-[`.some()`](#someint-count---promise) and [`.any()`](#any---promise) use `AggregateError` as rejection reason when they fail.
+[`.some()`](#-some-int-count-promise-) and [`.any()`](#-any-promise-) use `AggregateError` as rejection reason when they fail.
 
 
 Example:
@@ -2433,8 +2433,8 @@ Starting from 2.7.0 all bluebird instances also fire rejection events globally s
 
 The global events are:
 
- - `"unhandledRejection"` (corresponds to the local [`Promise.onPossiblyUnhandledRejection`](#promiseonpossiblyunhandledrejectionfunction-handler---undefined))
- - `"rejectionHandled"` (corresponds to the local [`Promise.onUnhandledRejectionHandled`](#promiseonunhandledrejectionhandledfunction-handler---undefined))
+ - `"unhandledRejection"` (corresponds to the local [`Promise.onPossiblyUnhandledRejection`](#-promise-onpossiblyunhandledrejection-function-handler-undefined-))
+ - `"rejectionHandled"` (corresponds to the local [`Promise.onUnhandledRejectionHandled`](#-promise-onunhandledrejectionhandled-function-handler-undefined-))
 
 
 Attaching global rejection event handlers in **node.js**:

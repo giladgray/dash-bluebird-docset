@@ -53,9 +53,9 @@ populateEntry = (file, type) -> ->
   level = if $el.is('h2') then 1 else 0
   title = encodeURIComponent(title)
   # insert table of contents anchor before this element
-  $el.before "<a name='//dash_ref/#{type}/#{title}/#{level}' class='dashAnchor'></a>"
+  $el.before "<a name='//dash_ref/#{type}/#{title}/#{level}' class='dashAnchor'></a>\n"
   if $el.is(SOLOS)
-    $el.before "<a name='//dash_ref/#{type}/#{title}/0' class='dashAnchor'></a>"
+    $el.before "<a name='//dash_ref/#{type}/#{title}/0' class='dashAnchor'></a>\n"
 
 for title, file of FILES
   $ = cheerio.load fs.readFileSync("html/#{file}")
