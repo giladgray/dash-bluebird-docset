@@ -1,6 +1,6 @@
 {
   "name": "dash-bluebird-docset",
-  "version": "0.1.0",
+  "version": "0.4.0",
   "description": "Bluebird Promises docset for the excellent Dash documentation browser",
   "main": "docset.coffee",
   "scripts": {
