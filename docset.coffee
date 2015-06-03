@@ -1,18 +1,13 @@
-fs        = require 'fs'            # file loading
-hljs      = require 'highlight.js'  # syntax highlighting
-marked    = require 'marked'        # markdown compilation
-cheerio   = require 'cheerio'       # html parsing
-Sequelize = require 'sequelize'     # db building
+fs        = require 'fs'         # file loading
+cheerio   = require 'cheerio'    # html parsing
+Sequelize = require 'sequelize'  # db building
+markdown  = require './markdown' # markdown compilation
 
 NAME = 'bluebird.docset'
 PATH = "#{NAME}/Contents/Resources/Documents"
 
 # compile API.md to HTML
-marked.setOptions
-  gfm: true
-  breaks: true
-  highlight: (code, lang) ->
-    (if lang then hljs.highlight(lang, code) else hljs.highlightAuto(code)).value
+html = markdown(fs.readFileSync('html/API-2.9.27.md', 'utf8'))
 fs.writeFileSync "html/api.html", """
 <html>
   <head>
@@ -20,7 +15,7 @@ fs.writeFileSync "html/api.html", """
     <link rel="stylesheet" href="github-highlight.css">
   </head>
   <body>
-    <div class="markdown-body">#{marked(fs.readFileSync('html/API.md', 'utf8'))}<div>
+    <div class="markdown-body">#{html}<div>
   </body>
 </html>
 """
@@ -30,11 +25,11 @@ fs.writeFileSync "#{PATH}/github-markdown.css",
 fs.writeFileSync "#{PATH}/github-highlight.css",
   fs.readFileSync('node_modules/highlight.js/styles/github.css')
 
-console.log 'Generated HTML from API.md and copied CSS files.'
+console.log 'Generated HTML from API.md and copied CSS files.\n'
 
-# HTML Guides, saved from http://handlebarsjs.com
+# HTML Guides
 FILES = {
-  'API' : 'api.html'
+  'API' : 'api.html' # https://raw.githubusercontent.com/petkaantonov/bluebird/master/API.md
 }
 
 # sections that don't have any functions and should get /0 anchor
@@ -72,6 +67,7 @@ for title, file of FILES
 console.log 'Docset Configuration:'
 console.log docset
 console.log '\n'
+console.log 'Rebuilding Sqlite index...\n'
 
 # create the database!
 db = new Sequelize 'database', 'username', 'password',
