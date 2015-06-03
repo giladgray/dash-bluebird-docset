@@ -93,7 +93,7 @@ SearchIndex = db.define 'searchIndex',
 
 # recreate the table and populate it from docset object
 db.sync(force: true)
-  .complete ->
+  .then ->
     for type, data of docset
       for name, path of data
         SearchIndex.create {name, type, path}
