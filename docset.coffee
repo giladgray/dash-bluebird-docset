@@ -20,6 +20,7 @@ fs.writeFileSync "html/api.html", """
 </html>
 """
 # copy CSS files
+fs.mkdirSync PATH
 fs.writeFileSync "#{PATH}/github-markdown.css",
   fs.readFileSync('node_modules/github-markdown-css/github-markdown.css')
 fs.writeFileSync "#{PATH}/github-highlight.css",
